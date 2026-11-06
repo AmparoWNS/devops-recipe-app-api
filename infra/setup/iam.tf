@@ -159,6 +159,10 @@ resource "aws_iam_user_policy_attachment" "ec2" {
 # Policy for RDS access #
 #########################
 
+#########################
+# Policy for RDS access #
+#########################
+
 data "aws_iam_policy_document" "rds" {
   statement {
     effect = "Allow"
@@ -170,9 +174,22 @@ data "aws_iam_policy_document" "rds" {
       "rds:CreateDBInstance",
       "rds:DeleteDBInstance",
       "rds:ListTagsForResource",
-      "rds:ModifyDBInstance"
+      "rds:ModifyDBInstance",
+      "rds:AddTagsToResource",
+      "rds:RemoveTagsFromResource"
     ]
     resources = ["*"]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["iam:CreateServiceLinkedRole"]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "iam:AWSServiceName"
+      values   = ["rds.amazonaws.com"]
+    }
   }
 }
 
