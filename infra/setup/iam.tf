@@ -351,7 +351,10 @@ data "aws_iam_policy_document" "elb" {
       "elasticloadbalancing:AddTags",
       "elasticloadbalancing:RemoveTags",
       "elasticloadbalancing:DescribeTags",
-      "elasticloadbalancing:ModifyListener"
+      "elasticloadbalancing:ModifyListener",
+      "elasticloadbalancing:ModifyListener",
+      "ec2:DescribeAccountAttributes",
+      "ec2:DescribeAddresses"
     ]
     resources = ["*"]
   }
